@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>隨機聲音播放器</title>
+</head>
+
+<body>
+    <h1>隨機聲音播放器</h1>
+    <form>
+        <label for="start-time">開始時間：</label>
+        <input type="number" id="start-time" name="start-time" min="0" value="0">
+        <br><br>
+        <label for="end-time">結束時間：</label>
+        <input type="number" id="end-time" name="end-time" min="0" value="10">
+        <br><br>
+        <button type="button" id="play-button">播放隨機聲音</button>
+    </form>
+    <br><br>
+    <audio id="audio-player" controls></audio>
+    <br><br>
+    <p id="random-time"></p>
+    <script>
+        const playButton = document.getElementById("play-button");
+        const audioPlayer = document.getElementById("audio-player");
+        const startTimeInput = document.getElementById("start-time");
+        const endTimeInput = document.getElementById("end-time");
+        const randomTimeDisplay = document.getElementById("random-time");
+
+        playButton.addEventListener("click", function () {
+            const startTime = startTimeInput.value * 60 * 1000;
+            const endTime = endTimeInput.value * 60 * 1000;
+            const randomTime = Math.floor(Math.random() * (endTime - startTime + 1) + startTime);
+            setTimeout(() => {
+                audioPlayer.src = "separate.mp3";
+                audioPlayer.play();
+            }, randomTime);
+            randomTimeDisplay.innerHTML = `隨機時間：${(randomTime / 1000)}秒`;
+        });
+    </script>
+</body>
+
+</html>
